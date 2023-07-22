@@ -2,7 +2,7 @@ const std = @import("std");
 const Allocator = std.mem.Allocator;
 const ArrayList = std.ArrayList;
 
-fn show_prompt() !void {
+fn showPrompt() !void {
     try std.io.getStdOut().writeAll("> ");
 }
 
@@ -31,7 +31,7 @@ pub fn main() !void {
 
     while (true) {
         if (is_interactive) {
-            try show_prompt();
+            try showPrompt();
         }
 
         var line = ArrayList(u8).init(allocator);
