@@ -1,19 +1,17 @@
 # Shell
 
-A simple shell written in C.
+A simple shell written in Zig.
 
 ## Dependencies
 
-- A GNU-compatible C compiler, such as GCC or Clang
-- make
+- Zig
 
 ## Build instructions
 
 ```sh
-$ make
+$ zig build
 ```
 
 ## Contributing
 
-- Format the code with clang-format.
-- If you're using clangd, set it up with `make compile_flags.txt`.
+- Format the code with `zig fmt`.
