@@ -20,13 +20,15 @@ pub fn main() !void {
 
     const is_interactive = std.os.isatty(std.os.STDIN_FILENO);
 
+    var line = ArrayList(u8).init(allocator);
+    defer line.deinit();
+
     while (true) {
         if (is_interactive) {
             try showPrompt();
         }
 
-        var line = ArrayList(u8).init(allocator);
-        defer line.deinit();
+        line.clearRetainingCapacity();
         std.io.getStdIn().reader().streamUntilDelimiter(line.writer(), '\n', null) catch return;
 
         var tokens = try @import("Lexer.zig").lex(line.items, allocator);
