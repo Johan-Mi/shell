@@ -18,7 +18,7 @@ pub fn main() !void {
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
-    const is_interactive = std.os.isatty(std.os.STDIN_FILENO);
+    const is_interactive = std.io.getStdIn().isTty();
 
     var line = ArrayList(u8).init(allocator);
     defer line.deinit();
