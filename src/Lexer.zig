@@ -25,7 +25,7 @@ fn step(self: *Self) !ArrayList(Token) {
 }
 
 fn chomp(self: *Self) void {
-    self.source = std.mem.trimLeft(u8, self.source, std.ascii.whitespace);
+    self.source = std.mem.trimLeft(u8, self.source, &std.ascii.whitespace);
 }
 
 fn eat(self: *Self, str: []const u8) bool {
