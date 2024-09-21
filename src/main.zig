@@ -14,7 +14,7 @@ fn interpret(tokens: []const []const u8, allocator: Allocator) !void {
 }
 
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    var gpa = std.heap.GeneralPurposeAllocator(.{}).init;
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
