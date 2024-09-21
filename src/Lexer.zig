@@ -14,14 +14,15 @@ pub fn lex(source: []const u8, allocator: std.mem.Allocator) !ArrayList(Token) {
 }
 
 fn step(self: *Self) !ArrayList(Token) {
-    self.chomp();
-    if (self.eat("|")) {
-        try self.tokens.append("|");
-    } else {
-        const word = self.takeNone(" |") orelse return self.tokens;
-        try self.tokens.append(word);
+    while (true) {
+        self.chomp();
+        if (self.eat("|")) {
+            try self.tokens.append("|");
+        } else {
+            const word = self.takeNone(" |") orelse return self.tokens;
+            try self.tokens.append(word);
+        }
     }
-    return @call(.always_tail, step, .{self});
 }
 
 fn chomp(self: *Self) void {
