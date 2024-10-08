@@ -23,6 +23,9 @@ pub fn main() !void {
     var line = ArrayList(u8).init(allocator);
     defer line.deinit();
 
+    var tokens = ArrayList([]const u8).init(allocator);
+    defer tokens.deinit();
+
     while (true) {
         if (is_interactive) {
             try showPrompt();
@@ -31,8 +34,9 @@ pub fn main() !void {
         line.clearRetainingCapacity();
         std.io.getStdIn().reader().streamUntilDelimiter(line.writer(), '\n', null) catch return;
 
-        var tokens = try @import("Lexer.zig").lex(line.items, allocator);
-        defer tokens.deinit();
+        tokens.clearRetainingCapacity();
+        var lexer = @import("Lexer.zig").init(line.items);
+        while (lexer.next()) |token| try tokens.append(token);
 
         try interpret(tokens.items, allocator);
     }
